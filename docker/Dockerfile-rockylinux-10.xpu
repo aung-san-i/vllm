@@ -1,17 +1,9 @@
 FROM intel/deep-learning-essentials:2025.3.2-0-devel-rockylinux10:latest AS vllm-base
 
-ARG http_proxy_env
-ARG https_proxy_env
-
 ARG PYTHON_VERSION=3.12
 ARG PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/xpu"
 
 WORKDIR /workspace/
-
-RUN cat <<EOF >> /etc/dnf/dnf.conf
-metadata_timer_sync=0
-proxy=${https_proxy_env}
-EOF
 
 RUN dnf install epel-release -y && \
     dnf config-manager --enable crb && \
